@@ -4,7 +4,17 @@ This is a starter kit for building paid HTTP APIs that autonomous agents can buy
 
 It includes a working default paid route, x402 server middleware, paying clients, a local demo agent, Bazaar discovery metadata, a browser payment-flow demo, AI-agent instructions, resource docs, CLI helpers, a sandbox, a payment-flow simulator, SDK helpers, and optional Algorand smart contract templates.
 
+
 ## Start Here
+
+Fork this repository to your GitHub account (recommended for customization and contributions), or clone it directly if you're just trying it locally.
+
+```bash
+git clone <repo-url>
+cd x402-commerce-template
+```
+
+Then install dependencies, configure your environment, and start the development server:
 
 ```bash
 pnpm install
