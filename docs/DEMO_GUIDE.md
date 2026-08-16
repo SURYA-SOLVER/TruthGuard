@@ -32,7 +32,7 @@ curl http://localhost:3000/health
 
 ## 10–18 — Normal x402 Commerce Template API
 
-**Presenter note:** The paid route's business logic is just deterministic public-data mapping.
+**Presenter note:** The default paid route's business logic is deterministic public-data mapping. Participants can replace it after the x402 lifecycle is verified.
 
 **Run:**
 
@@ -41,7 +41,7 @@ pnpm test -- test/algorand.test.ts
 curl -i http://localhost:3000/api/wallet/not-an-address
 ```
 
-**Observe:** Mapping test passes; invalid input returns `400` before payment.
+**Observe:** The default mapping test passes; invalid input returns `400` before payment.
 
 **Key point:** Validate requests before charging.
 
@@ -91,7 +91,7 @@ pnpm client:paid
 
 Or select **Ask agent to buy** in the browser to show the same lifecycle as a visible five-step timeline.
 
-**Observe:** Payer address, confirmed settlement receipt, transaction ID, and wallet JSON.
+**Observe:** Payer address, confirmed settlement receipt, transaction ID, and paid JSON.
 
 **Key point:** Success is printed only after `PAYMENT-RESPONSE.success` is true.
 

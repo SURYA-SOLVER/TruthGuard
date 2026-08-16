@@ -25,7 +25,7 @@ When the participant says what they want to build, implement it end to end:
 ## Customization Checklist
 
 - Rename the service in `package.json`, `README.md`, `src/server.ts`, and frontend text.
-- Change the route from `/api/wallet/:address` if the participant is not selling wallet intelligence.
+- Change the route from `/api/wallet/:address` if the participant is not selling the default wallet-data example.
 - Update `src/routes/wallet.ts` or create a new route module for the participant's paid resource.
 - Update `src/x402/config.ts` with the new protected route, resource description, input schema, output example, and Bazaar discovery metadata.
 - Update `client/lib.ts` so clients call the new paid URL.

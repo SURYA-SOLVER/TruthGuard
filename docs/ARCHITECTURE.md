@@ -1,6 +1,6 @@
 # x402 Commerce Template Architecture
 
-x402 Commerce Template keeps the paid HTTP concern separate from the wallet-data concern.
+x402 Commerce Template keeps the paid HTTP concern separate from the resource logic. The default sample resource sells Algorand wallet data, but the same structure works for any bounded API result or action.
 
 ```mermaid
 flowchart TD
@@ -9,8 +9,8 @@ flowchart TD
     Gate -->|Verify and settle| Facilitator[GoPlausible Facilitator]
     Facilitator -->|USDC transfer| Chain[Algorand]
     Chain --> Receiver[Merchant payTo Wallet]
-    API -->|Public account lookup| Indexer[Algorand Indexer]
-    Indexer -->|Account data| API
+    API -->|Default example lookup| Data[Resource data provider]
+    Data -->|Paid result data| API
     Gate -.->|Discovery metadata| Bazaar[Bazaar Catalog]
 ```
 
@@ -22,7 +22,7 @@ The client asks for a paid response over normal HTTP. An unpaid client stops at 
 
 ### x402 Commerce Template Resource Server
 
-Hono exposes public `GET /health` and paid `GET /api/wallet/:address`. Address syntax is checked before the payment middleware. Once payment is verified, the handler asks the account-data service for the deterministic report.
+Hono exposes public `GET /health` and a default paid route at `GET /api/wallet/:address`. Address syntax is checked before the payment middleware. Once payment is verified, the handler asks the resource service for the deterministic result. Participants can replace this route with their own paid data, compute, verification, or action endpoint.
 
 ### x402 Middleware
 
@@ -36,9 +36,9 @@ The facilitator reports supported scheme/network pairs and handles verification 
 
 Algorand is the settlement rail for the USDC asset transfer. TestNet is safe demo infrastructure; MainNet settles real value and is required for current Challenge ranking.
 
-### Algorand Data Provider
+### Resource Data Provider
 
-x402 Commerce Template separately calls an Algorand Indexer for public account data. It maps microALGO and six-decimal USDC into display units, counts holdings and app state, and creates a deterministic summary. Changing the Indexer does not change the payment protocol.
+The default sample separately calls an Algorand Indexer for public account data. A customized service might call another API, read chain state, compute a result, or trigger a bounded action. Changing the resource logic does not change the payment protocol.
 
 ### Bazaar
 
@@ -52,8 +52,8 @@ Bazaar is discovery, not payment processing. x402 Commerce Template sends a mach
 
 ```mermaid
 flowchart LR
-    x402 Commerce Template -->|Account query| Data[Indexer data plane]
-    x402 Commerce Template -->|x402 verification request| Pay[Payment control plane]
+    Service[Resource server] -->|Data or action request| Data[Resource data plane]
+    Service -->|x402 verification request| Pay[Payment control plane]
     Pay --> Facilitator
     Facilitator -->|USDC settlement| Algorand
 ```

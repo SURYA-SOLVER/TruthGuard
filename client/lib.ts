@@ -69,7 +69,7 @@ export function readPaymentRequired(response: Response): PaymentRequiredSummary 
       price,
       network: requirement?.network ?? 'unknown',
       asset: String(requirement?.asset ?? requirement?.extra?.asset ?? requirement?.extra?.name ?? 'unknown'),
-      description: parsed.resource?.description ?? 'Algorand Wallet Intelligence',
+      description: parsed.resource?.description ?? 'Paid x402 resource',
     };
   } catch {
     return null;

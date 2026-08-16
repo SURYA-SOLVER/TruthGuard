@@ -11,20 +11,20 @@ Three names are easy to conflate:
 ```mermaid
 flowchart LR
     Agent -->|Find paid resource service| Bazaar
-    Bazaar --> x402 Commerce Template
-    Agent -->|Request| x402 Commerce Template
-    x402 Commerce Template -->|402| Agent
-    Agent -->|Paid request| x402 Commerce Template
-    x402 Commerce Template -->|Wallet insight| Agent
+    Bazaar --> Service[x402 Commerce Template]
+    Agent -->|Request| Service
+    Service -->|402| Agent
+    Agent -->|Paid request| Service
+    Service -->|Paid JSON result| Agent
 ```
 
 ## Configuration
 
-[src/x402/config.ts](../src/x402/config.ts) registers `bazaarResourceServerExtension` once and attaches a declared discovery extension to the wallet route. The declaration contains:
+[src/x402/config.ts](../src/x402/config.ts) registers `bazaarResourceServerExtension` once and attaches a declared discovery extension to the protected route. The default metadata describes the sample wallet route; custom projects should replace it with their real paid resource. The declaration contains:
 
 - a specific human- and machine-readable resource description;
-- an example Algorand address and validation-oriented input schema;
-- an example output report;
+- an example input and validation-oriented input schema;
+- an example output result;
 - `extra.tag = x402-global-challenge` when `CHALLENGE_MODE=true`.
 
 The extension is carried in the `402` and copied into the paid payload. GoPlausible can catalog it when settlement traffic passes through the facilitator.

@@ -14,4 +14,4 @@ console.log('✓ /health returned 200');
 
 const wallet = await fetch(`${baseUrl}/api/wallet/${address}`);
 if (wallet.status !== 402) throw new Error(`Protected route returned HTTP ${wallet.status}, expected 402`);
-console.log('✓ protected wallet endpoint returned 402 without payment');
+console.log('✓ protected paid endpoint returned 402 without payment');

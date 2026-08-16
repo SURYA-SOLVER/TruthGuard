@@ -1,27 +1,27 @@
 # The x402 Commerce Template x402 Flow
 
-This is the real request lifecycle for `GET /api/wallet/:address`.
+This is the real request lifecycle for the default sample route, `GET /api/wallet/:address`. Custom services should keep the same payment lifecycle and replace only the resource path, validation, and business logic.
 
 ```mermaid
 sequenceDiagram
     participant Client
-    participant x402 Commerce Template
+    participant Server as x402 Commerce Template
     participant Facilitator
     participant Algorand
     participant Indexer
-    Client->>x402 Commerce Template: GET /api/wallet/ADDRESS
-    x402 Commerce Template-->>Client: 402 + PAYMENT-REQUIRED
+    Client->>Server: GET /api/wallet/ADDRESS
+    Server-->>Client: 402 + PAYMENT-REQUIRED
     Client->>Client: Select requirement and sign payment
-    Client->>x402 Commerce Template: GET + PAYMENT-SIGNATURE
-    x402 Commerce Template->>Facilitator: POST verify
-    Facilitator-->>x402 Commerce Template: Payment valid
-    x402 Commerce Template->>Indexer: Fetch public account data
-    Indexer-->>x402 Commerce Template: Account response
-    x402 Commerce Template->>Facilitator: POST settle
+    Client->>Server: GET + PAYMENT-SIGNATURE
+    Server->>Facilitator: POST verify
+    Facilitator-->>Server: Payment valid
+    Server->>Indexer: Fetch default sample data
+    Indexer-->>Server: Resource response
+    Server->>Facilitator: POST settle
     Facilitator->>Algorand: Submit USDC transfer
     Algorand-->>Facilitator: Confirm transaction
-    Facilitator-->>x402 Commerce Template: Settlement receipt
-    x402 Commerce Template-->>Client: 200 + JSON + PAYMENT-RESPONSE
+    Facilitator-->>Server: Settlement receipt
+    Server-->>Client: 200 + JSON + PAYMENT-RESPONSE
 ```
 
 ## 1. Unpaid Request
@@ -58,7 +58,7 @@ The middleware asks GoPlausible to settle. The facilitator submits the authorize
 
 ## 9. HTTP 200 Response
 
-After successful settlement, the report is returned as JSON. Verification and settlement failures remain errors; x402 Commerce Template does not print a success claim based only on receiving some response.
+After successful settlement, the paid result is returned as JSON. Verification and settlement failures remain errors; x402 Commerce Template does not print a success claim based only on receiving some response.
 
 ## 10. Payment Receipt
 
