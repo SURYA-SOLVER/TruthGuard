@@ -107,6 +107,7 @@ The agent should change:
 - `docs/resources/AGENTIC_COMMERCE_PATTERNS.md`
 - `docs/resources/TROUBLESHOOTING_PLAYBOOK.md`
 - `docs/resources/IMPLEMENTATION_MAP.md`
+- `docs/resources/TECH_STACK.md`
 - x402 docs: https://docs.x402.org/introduction
 - Algorand x402 guide: https://dev.algorand.co/resources/x402-on-algorand/
 - GoPlausible resource catalog: https://facilitator.goplausible.xyz/dashboard/leaderboards?cat=resources
