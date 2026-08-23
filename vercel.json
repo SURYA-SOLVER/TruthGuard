@@ -1,15 +1,26 @@
 {
   "version": 2,
-  "buildCommand": "pnpm run build",
-  "framework": null,
+  "builds": [
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "outputDirectory": "public"
+      }
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.ts"
+      "destination": "/api/index"
     },
     {
       "source": "/health",
-      "destination": "/api/index.ts"
+      "destination": "/api/index"
     }
   ]
 }
