@@ -1,5 +1,5 @@
+import { getRequestListener } from '@hono/node-server';
 import { Hono } from 'hono';
-import { handle } from 'hono/vercel';
 import { createApp } from '../src/app.js';
 import { loadConfig } from '../src/config.js';
 
@@ -17,7 +17,7 @@ try {
   }, 500));
 }
 
-// Disable Vercel's automatic body parsing so Hono can read the request stream directly.
+// Disable Vercel's automatic body parsing. 
 // Without this, Vercel consumes the body and Hono hangs indefinitely waiting for stream data.
 export const config = {
   api: {
@@ -25,4 +25,8 @@ export const config = {
   },
 };
 
-export default handle(app);
+const listener = getRequestListener(app.fetch);
+
+export default function (req: any, res: any) {
+  return listener(req, res);
+}
