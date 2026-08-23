@@ -11,6 +11,7 @@ function findBundlePath(): string {
     resolve(__dirname, '..', '..', 'dist', 'web', 'app.js'),    // from dist/src/web/ -> dist/web/
     resolve(__dirname, '..', 'web', 'app.js'),                    // from src/web/ -> dist/web/ (Vercel)
     resolve(process.cwd(), 'dist', 'web', 'app.js'),             // from cwd (local dev)
+    resolve(process.cwd(), 'public', 'assets', 'app.js'),        // from cwd (new output location)
   ];
   for (const p of candidates) {
     if (existsSync(p)) return p;
