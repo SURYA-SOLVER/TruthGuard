@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "pnpm run build",
   "builds": [
     {
       "src": "api/index.ts",
@@ -16,11 +17,11 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index"
+      "destination": "/api"
     },
     {
       "source": "/health",
-      "destination": "/api/index"
+      "destination": "/api"
     }
   ]
 }
